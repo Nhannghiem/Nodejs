@@ -23,10 +23,9 @@
       <tr>
         <td>{{name}}</td>
         <td>{{age}} </td>
-        <td>{{course_id}} </td>
-        <td><a href="/delete?id={{_id}}"> Delete</a></td>
-
-
+        {{!-- <td>{{course_id}} </td> --}}
+        <td><a href="/delete?id={{_id}}" > Delete</a></td>
+        <td><a href="/grades?id={{_id}}"> Gared</a></td>
       </tr>
       {{/each}}
 

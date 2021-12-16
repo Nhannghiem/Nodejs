@@ -24,6 +24,14 @@ app.get('/courses', async(req,res)=> {
     res.render('course',{data:allCourse})
 
 })
+app.get('/studentPass', async(req,res)=> {
+    
+    const client = await MongoClient.connect(url);
+    const dbo = client.db("TrainerManagement");
+    const allCourse =await dbo.collection("courses").find({}).toArray();
+    res.render('studentPass',{pass:allCourse})
+
+})
 
 app.get('/view', async(req,res)=> {
     const id = req.query.id;
@@ -37,7 +45,9 @@ app.get('/view', async(req,res)=> {
     // res.render('viewStudent',{courseDeateil: deatail,students: allStudent})
     res.render('viewStudent',{courseDeateil:deatail})
 })
-app.get('/indexStudent', async(req,res)=>{
+
+
+app.get('/indexStudent',(req,res)=>{
     
     // const client = await MongoClient.connect(url);
     // const dbo = client.db("TrainerManagement");
@@ -45,6 +55,15 @@ app.get('/indexStudent', async(req,res)=>{
     // res.render('course',{data:allCourse})
     res.render('indexStudent')
     
+})
+app.get('/home', (req,res)=>{
+    res.render('home')
+})
+app.get('/grades', (req,res)=>{
+    res.render('grades')
+})
+app.get('/studentPass',(req,res)=>{
+    res.render('studentPass')
 })
 
 app.post('/indexStudent', async(req,res)=>{
@@ -68,10 +87,6 @@ app.get('/delete', async(req,res)=> {
     await dbo.collection("students").deleteOne({"_id":ObjectId(deleteStudent)})
 
     res.redirect('back')
-})
-
-app.get('/viewStudent',(req,res)=>{
-    res.render('viewStudent')
 })
 
 // app.post('/index',async (req,res)=>{
