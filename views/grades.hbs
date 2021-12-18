@@ -16,7 +16,22 @@
 
     <h1 style="color:rgb(130, 161, 18); ">Grades of Student</h1>
   </div>
-  
+  <form action="/updateGrade" method="post">
+  <input type="text" name="txtName" value="{{note.name}}">
+  <input type="text" name="txtAge" value="{{note.age}}">
+  {{!-- Faill
+  <input type="text" name="txtFail" value="{{note.fails}}">
+  Pass
+  <input type="text" > --}}
+  <select name="txtFail" value="{{note.fails}}">
+    <option> Faill</option>
+    
+  </select>
+
+  <input type="hidden" name="txtCourseId" value="{{note.course_id}}">
+  <input type="hidden" name="txtId" value="{{note._id}}">
+  <input type="submit" value="update">
+  </form>
 
 </body>
 </html>
