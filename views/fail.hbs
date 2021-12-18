@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <title>Document</title>
+    <title>Document</title>
 </head>
-
 <body>
-  <div class="text-center">
+    <div class="text-center">
     <img
       src="https://cms.greenwich.edu.vn/pluginfile.php/1/theme_adaptable/logo/1627617472/RGB_Logo%20DH%20Greenwich%20%28VN%291.jpg"
       class="img-fluid" alt="Responsive image" width="50%;">
@@ -32,52 +30,27 @@
       <tr>
         <th scope="col">Name Students</th>
         <th scope="col">Age Students</th>
-        <th scope="col">Delete Students</th>
         <th scope="col">Grade of Students</th>
+        <th scope="col">Delete Student</th>
+        
       </tr>
     </thead>
     <tbody>
       <tr>
-        {{#each courseDeateil}}
+        {{#each fail}}
       <tr>
         <td>{{name}}</td>
         <td>{{age}} </td>
         {{!-- <td>{{course_id}} </td> --}}
+        
+        <td>{{fails}} </td>
         <td><a href="/delete?id={{_id}}"> Delete</a></td>
-        <td><a href="/grade?id={{_id}}"> Gared</a></td>
+        
       </tr>
       {{/each}}
 
       </tr>
     </tbody>
   </table>
-  
-
-  {{!-- <table style="width: 50%;">
-
-    <thead>
-      Students Lists
-    </thead>
-    <tbody>
-      <tr>
-        <td>Students Name</td>
-        <td>Action</td>
-
-      </tr>
-      <tr>
-        {{#each students}}
-        <td>{{name}}</td>
-        <td>{{age}}</td>
-
-        <td><a href="/assginStudent?id={{_id}}&courseId={{_id}}">Assign</a></td>
-        {{/each}}
-      </tr>
-
-    </tbody>
-
-
-  </table> --}}
-
 </body>
-
 </html>

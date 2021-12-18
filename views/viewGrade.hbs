@@ -21,7 +21,8 @@
       <tr>
         <th scope="col">Name Course</th>
         <th scope="col">ID</th>
-        <th scope="col">View</th>
+        <th scope="col">Student of Pass</th>
+         <th scope="col">Student of Fail</th>
       </tr>
     </thead>
     <tbody>
@@ -29,7 +30,9 @@
       <tr>
         <td>{{name}}</td>
         <td>{{desc}} </td>
-        <td><a href="/pass?id={{_id}}">Grades of Students</a></td>
+        <td><a href="/pass?id={{_id}}">Student Pass</a></td>
+        <td><a href="/fail?id={{_id}}">Student Fail</a></td>
+
       </tr>
       {{/each}}
     </tbody>

@@ -24,13 +24,34 @@ app.get('/courses', async(req,res)=> {
     res.render('course',{data:allCourse})
 
 })
-app.get('/studentPass', async(req,res)=> {
+app.get('/viewGrade', async(req,res)=> {
     
     const client = await MongoClient.connect(url);
     const dbo = client.db("TrainerManagement");
     const allCourse =await dbo.collection("courses").find({}).toArray();
-    res.render('studentPass',{pass:allCourse})
+    res.render('viewGrade',{pass:allCourse})
 
+})
+app.get('/pass', async(req,res)=> {
+    const id = req.query.id;
+    console.log(id)
+
+    const client = await MongoClient.connect(url);
+    const dbo = client.db("TrainerManagement");
+ 
+    const deatail = await dbo.collection("students").find({course_id: id}).toArray()
+    res.render('pass',{pass:deatail})
+})
+
+app.get('/fail', async(req,res)=> {
+    const id = req.query.id;
+    console.log(id)
+
+    const client = await MongoClient.connect(url);
+    const dbo = client.db("TrainerManagement");
+ 
+    const deatail = await dbo.collection("students").find({course_id: id}).toArray()
+    res.render('fail',{fail:deatail})
 })
 
 app.get('/view', async(req,res)=> {
@@ -45,7 +66,33 @@ app.get('/view', async(req,res)=> {
     // res.render('viewStudent',{courseDeateil: deatail,students: allStudent})
     res.render('viewStudent',{courseDeateil:deatail})
 })
+app.get('/grade',async(req,res)=>{
+    const id = req.query.id;
 
+    const client = await MongoClient.connect(url);
+    const dbo = client.db("TrainerManagement");
+     const de = await dbo.collection("students").findOne({"_id": ObjectId(id)})
+    res.render('grades',{note:de})
+})
+
+app.post('/updateGrade',async(req,res)=>{
+    const inputName = req.body.txtName;
+    const inputPrice = req.body.txtAge;
+    const id = req.body.txtId;
+    const inputCourseId = req.body.txtCourseId;
+    const inputFail = req.body.txtFail;
+    const inputPass = req.body.txtPass;
+    
+    
+    const fil = {_id: ObjectId(id)}
+    const alue = {$set: {name:inputName,price:inputPrice,course_id:inputCourseId,fails:inputFail,pass:inputPass}}
+
+    const client = await MongoClient.connect(url);
+    const dbo = client.db("TrainerManagement");
+    await dbo.collection("students").updateOne(fil,alue)
+    res.render("pass");
+
+})
 
 app.get('/indexStudent',(req,res)=>{
     
@@ -59,18 +106,18 @@ app.get('/indexStudent',(req,res)=>{
 app.get('/home', (req,res)=>{
     res.render('home')
 })
-app.get('/grades', (req,res)=>{
-    res.render('grades')
-})
-app.get('/studentPass',(req,res)=>{
-    res.render('studentPass')
-})
+// app.get('/studentPass',(req,res)=>{
+//     res.render('studentPass')
+// })
 
 app.post('/indexStudent', async(req,res)=>{
     const inputName = req.body.txtName;
     const inputAge = req.body.txtAge;
     const inputCourseId = req.body.txtCourseid;
-    
+    if(isNaN(inputAge)){
+        res.render('indexStudent',{errworng: 'Please enter the number into age'})
+        return;
+    }
     const vaule = {name: inputName, age: inputAge, course_id: inputCourseId}
 
     const client = await MongoClient.connect(url);
@@ -88,6 +135,7 @@ app.get('/delete', async(req,res)=> {
 
     res.redirect('back')
 })
+
 
 // app.post('/index',async (req,res)=>{
 //     const studentId = req.body.txtStudentId
