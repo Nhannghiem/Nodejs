@@ -82,17 +82,35 @@ app.post('/updateGrade',async(req,res)=>{
     const inputCourseId = req.body.txtCourseId;
     const inputFail = req.body.txtFail;
     const inputPass = req.body.txtPass;
-    
-    
-    const fil = {_id: ObjectId(id)}
+
+    if(inputPass != 'Pass' && inputPass !=''){
+        res.render('grades',{loi:'xin loi muc nay chi dien Pass'})
+        return;
+    }
+    else if (inputFail != 'Fail' && inputFail !=''){
+        res.render('grades',{loi:'xin loi muc nay chi dien Fail'})
+        return;
+    } 
+    else if (inputPass =='' && inputFail==''){
+        res.render('grades',{sorry:'xin loi ban chua nhap diem cho sinh vien'})
+        return;
+    } 
+    else if (inputPass == 'Pass' && inputFail=='Fail'){
+        res.render('grades',{sorry:'Không thể trùng điểm '})
+        return;
+    } 
+
+    const fil = {_id: ObjectId(id)} 
     const alue = {$set: {name:inputName,price:inputPrice,course_id:inputCourseId,fails:inputFail,pass:inputPass}}
+ 
 
     const client = await MongoClient.connect(url);
     const dbo = client.db("TrainerManagement");
     await dbo.collection("students").updateOne(fil,alue)
-    res.render("pass");
+    res.render('viewStudent');
 
 })
+
 
 app.get('/indexStudent',(req,res)=>{
     
@@ -124,6 +142,16 @@ app.post('/indexStudent', async(req,res)=>{
     const dbo = client.db("TrainerManagement");
     await dbo.collection("students").insertOne(vaule)
     res.redirect('back')
+})
+
+app.get('/search', async(req,res)=> {
+    const searchStudent = req.body.txtSearch
+    
+    const client = await MongoClient.connect(url);
+    const dbo = client.db("TrainerManagement");
+    const allStudent = await dbo.collection("students").findOne({name:searchStudent}).toArray()
+
+    res.render('viewStudent',{})
 })
 
 app.get('/delete', async(req,res)=> {
