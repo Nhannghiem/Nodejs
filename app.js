@@ -75,7 +75,7 @@ app.get('/grade',async(req,res)=>{
     res.render('grades',{note:de})
 })
 
-app.post('/updateGrade',async(req,res)=>{
+app.post('/updateGrade',async(req,res,next)=>{
     const inputName = req.body.txtName;
     const inputPrice = req.body.txtAge;
     const id = req.body.txtId;
@@ -107,7 +107,7 @@ app.post('/updateGrade',async(req,res)=>{
     const client = await MongoClient.connect(url);
     const dbo = client.db("TrainerManagement");
     await dbo.collection("students").updateOne(fil,alue)
-    res.render('viewStudent');
+    res.render('viewStudent')
 
 })
 
@@ -144,15 +144,16 @@ app.post('/indexStudent', async(req,res)=>{
     res.redirect('back')
 })
 
-app.get('/search', async(req,res)=> {
+app.post('/search', async(req,res)=> {
     const searchStudent = req.body.txtSearch
-    
+
     const client = await MongoClient.connect(url);
     const dbo = client.db("TrainerManagement");
-    const allStudent = await dbo.collection("students").findOne({name:searchStudent}).toArray()
+    const allStudent = await dbo.collection("students").find({name:{$regex:searchStudent,$options: 'i'}}).toArray()
 
-    res.render('viewStudent',{})
+    res.render('viewStudent',{courseDeateil:allStudent})
 })
+    
 
 app.get('/delete', async(req,res)=> {
     const deleteStudent = req.query.id
