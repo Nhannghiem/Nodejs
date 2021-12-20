@@ -10,7 +10,7 @@
   <title>Document</title>
 </head>
 
-<body class="renderData(data)" >
+<body  >
   <div class="text-center">
     <img
       src="https://cms.greenwich.edu.vn/pluginfile.php/1/theme_adaptable/logo/1627617472/RGB_Logo%20DH%20Greenwich%20%28VN%291.jpg"
@@ -22,8 +22,8 @@
   <nav class="navbar navbar-light bg-light justify-content-between">
   
   <form class="form-inline" action="/search" method="post">
-    <input class="form-control mr-sm-2" type="text" id="search" placeholder="Search"  oninput="searchData()" name="txtSearch">
-    {{!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> --}}
+    <input class="form-control mr-sm-2" type="text" id="search" placeholder="Search"   name="txtSearch">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
   </form>
 </nav>
     <br>
@@ -78,16 +78,9 @@
 
 
   </table> --}}
-  <script>
-    function searchData(){
-      let valueSearch = document.getElementById('search').value
-      console.log(valueSearch)
-      const dataFilter = data.filter(value =>{
-        return value.title.toUpperCase().includes(valueSearch.toUpperCase())
-      })
-      renderData(dataFilter);
-    }
-  </script>
+
+
+  
 
 </body>
 
